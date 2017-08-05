@@ -65,9 +65,3 @@ chunk    {3} vendor.bundle.js, vendor.bundle.js.map (vendor) 3.78 MB [initial] [
 chunk    {4} inline.bundle.js, inline.bundle.js.map (inline) 0 bytes [entry] [rendered]
 webpack: Compiled successfully.
 
-
-
-
-https://coursetro.com/posts/code/67/Angular-4-Material-Tutorial
-
-https://material.angular.io/components/table/overview
