@@ -1,10 +1,119 @@
-import {Component} from '@angular/core';
-import {DataSource} from '@angular/cdk';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
+import { Component } from '@angular/core';
+import { driverData } from './driverData';
+
+const RACEDATA: driverData[] = [
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Timo BERNHARD",
+        "laps": 90,
+        "min": 102.401,
+        "avg": 108.53875555555555,
+        "top20": 103.34744999999998
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Mark WEBBER",
+        "laps": 51,
+        "min": 103.623,
+        "avg": 107.62274509803916,
+        "top20": 104.16090000000001
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Brendon HARTLEY",
+        "laps": 60,
+        "min": 103.33,
+        "avg": 107.20233333333331,
+        "top20": 103.95399999999998
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Neel JANI",
+        "laps": 91,
+        "min": 102.756,
+        "avg": 108.55853846153849,
+        "top20": 103.7363
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Romain DUMAS",
+        "laps": 62,
+        "min": 104.121,
+        "avg": 108.03580645161293,
+        "top20": 104.67645000000002
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Porsche",
+        "team": "Porsche Team",
+        "driver": "Marc LIEB",
+        "laps": 45,
+        "min": 103.9,
+        "avg": 113.17293333333329,
+        "top20": 104.57809999999999
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Rebellion",
+        "team": "Rebellion Racing",
+        "driver": "Alexandre IMPERATORI",
+        "laps": 91,
+        "min": 107.387,
+        "avg": 111.91269230769227,
+        "top20": 108.01725000000002
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Rebellion",
+        "team": "Rebellion Racing",
+        "driver": "Dominik KRAIHAMER",
+        "laps": 52,
+        "min": 107.968,
+        "avg": 116.44836538461537,
+        "top20": 108.60575000000001
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "Rebellion",
+        "team": "Rebellion Racing",
+        "driver": "Mathéo TUSCHER",
+        "laps": 48,
+        "min": 107.945,
+        "avg": 113.29641666666664,
+        "top20": 108.81980000000001
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "CLM",
+        "team": "Bykolles Racing Team",
+        "driver": "Pierre KAFFER",
+        "laps": 63,
+        "min": 108.975,
+        "avg": 113.93060317460315,
+        "top20": 109.90119999999999
+    },
+    {
+        "class": "LMP1",
+        "manufacturer": "CLM",
+        "team": "Bykolles Racing Team",
+        "driver": "Simon TRUMMER",
+        "laps": 77,
+        "min": 109.047,
+        "avg": 115.76451948051948,
+        "top20": 110.39689999999999
+    }
+    ];
+
 
 @Component({
   selector: 'app-root',
@@ -13,79 +122,11 @@ import 'rxjs/add/operator/map';
 })
 
 export class AppComponent {
-  title = 'app';
-  displayedColumns = ['userId', 'userName', 'progress', 'color'];
-  exampleDatabase = new ExampleDatabase();
-  dataSource: ExampleDataSource | null;
 
-  ngOnInit() {
-    this.dataSource = new ExampleDataSource(this.exampleDatabase);
-  }
+  raceData = RACEDATA;
+
 }
 
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleDatabase {
-  /** Stream that emits whenever the data has been modified. */
-  dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
-  get data(): UserData[] { return this.dataChange.value; }
-
-  constructor() {
-    // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addUser(); }
-  }
-
-  /** Adds a new user to the database. */
-  addUser() {
-    const copiedData = this.data.slice();
-    copiedData.push(this.createNewUser());
-    this.dataChange.next(copiedData);
-  }
-
-  /** Builds and returns a new User. */
-  private createNewUser() {
-    const name =
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-    return {
-      id: (this.data.length + 1).toString(),
-      name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-    };
-  }
-}
-
-/**
- * Data source to provide what data should be rendered in the table. Note that the data source
- * can retrieve its data in any way. In this case, the data source is provided a reference
- * to a common data base, ExampleDatabase. It is not the data source's responsibility to manage
- * the underlying data. Instead, it only needs to take the data and send the table exactly what
- * should be rendered.
- */
-export class ExampleDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase) {
-    super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<UserData[]> {
-    return this._exampleDatabase.dataChange;
-  }
-
-  disconnect() {}
-}
+      

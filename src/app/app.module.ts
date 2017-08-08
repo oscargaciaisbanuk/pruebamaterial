@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdTableModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -10,8 +9,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    MdTableModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,34 +1,24 @@
 <div class="example-container mat-elevation-z8">
-  <md-table #table [dataSource]="dataSource">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- ID Column -->
-    <ng-container cdkColumnDef="userId">
-      <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
-    </ng-container>
-
-    <!-- Progress Column -->
-    <ng-container cdkColumnDef="progress">
-      <md-header-cell *cdkHeaderCellDef> Progress </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.progress}}% </md-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container cdkColumnDef="userName">
-      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-    </ng-container>
-
-    <!-- Color Column -->
-    <ng-container cdkColumnDef="color">
-      <md-header-cell *cdkHeaderCellDef>Color</md-header-cell>
-      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}} </md-cell>
-    </ng-container>
-
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-  </md-table>
+ <table>
+  <tr>
+    <th>Class</th>
+    <th>Manufacturer</th> 
+    <th>Team</th>
+    <th>Driver</th>
+    <th>Laps</th>
+    <th>Min</th>
+    <th>Avg</th>
+    <th>Top 20</th>
+  </tr>
+  <tr *ngFor="let row of raceData">
+    <td>{{row.class}}</td>
+    <td>{{row.manufacturer}}</td>
+    <td>{{row.team}}</td>
+    <td>{{row.driver}}</td>
+    <td>{{row.laps}}</td>
+    <td>{{row.min}}</td>
+    <td>{{row.avg}}</td>
+    <td>{{row.top20}}</td>
+  </tr>
+</table>
 </div>
