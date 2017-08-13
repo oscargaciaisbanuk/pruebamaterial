@@ -1,0 +1,24 @@
+<div class="raceData component">
+ <table>
+  <tr>
+    <th>Class</th>
+    <th>Manufacturer</th> 
+    <th>Team</th>
+    <th>Driver</th>
+    <th>Laps</th>
+    <th>Min</th>
+    <th>Avg</th>
+    <th>Top 20</th>
+  </tr>
+  <tr *ngFor="let row of raceData">
+    <td>{{row.class}}</td>
+    <td>{{row.manufacturer}}</td>
+    <td>{{row.team}}</td>
+    <td>{{row.driver}}</td>
+    <td>{{row.laps}}</td>
+    <td>{{row.min}}</td>
+    <td>{{row.avg}}</td>
+    <td>{{row.top20}}</td>
+  </tr>
+</table>
+</div>
